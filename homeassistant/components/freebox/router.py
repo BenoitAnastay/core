@@ -118,7 +118,8 @@ class FreeboxRouter:
         # Connection sensors
         connection_datas: dict[str, Any] = await self._api.connection.get_status()
         for sensor_key in CONNECTION_SENSORS_KEYS:
-            self.sensors_connection[sensor_key] = connection_datas[sensor_key]
+            if "value" in sensor:
+                self.sensors_connection[sensor_key] = connection_datas[sensor_key]
 
         self._attrs = {
             "IPv4": connection_datas.get("ipv4"),
